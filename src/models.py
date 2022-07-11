@@ -23,11 +23,40 @@ class Address(Base):
     street_name = Column(String(250))
     street_number = Column(String(250))
     post_code = Column(String(250), nullable=False)
+
     person_id = Column(Integer, ForeignKey('person.id'))
     person = relationship(Person)
 
     def to_dict(self):
         return {}
+
+class Posts(Base):
+    __tablename__ = 'posts'
+    # Here we define columns for the table address.
+    # Notice that each column is also a normal Python instance attribute.
+    id = Column(Integer, primary_key=True)
+    description = Column(String(250))
+    image_url = Column(String(250))
+    date = Column(String(250))
+    owner_id = Column(Integer, ForeignKey('person.id'))
+    person = relationship(Person)
+
+    def to_dict(self):
+        return {}
+
+class Followers(Base):
+    __tablename__ = 'followers'
+    # Here we define columns for the table address.
+    # Notice that each column is also a normal Python instance attribute.
+    id = Column(Integer, primary_key=True)
+    from_id = Column(Integer, ForeignKey('person.id'))
+    from_person = relationship(Person)
+    to_id = Column(Integer, ForeignKey('person.id'))
+    to_person = relationship(Person)
+
+    def to_dict(self):
+        return {}
+
 
 ## Draw from SQLAlchemy base
 try:
